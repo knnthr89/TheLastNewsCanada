@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">The Last News Canada</string>
+    <string name="api_key">309858f664d141108a30962182bbeff0</string>
+    <string name="network_exception_message">A network error has occurred. Please check your connection and try again.</string>
+    <string name="request_exception_message">The API request was invalid. Please try again.</string>
+    <string name="general_exception_message">An error occurred retrieving data. Please try again.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
