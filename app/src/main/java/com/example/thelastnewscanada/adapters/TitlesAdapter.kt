@@ -31,7 +31,7 @@ class TitlesAdapter(private val articles : List<Article>) : RecyclerView.Adapter
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title : TextView = view.findViewById(R.id.tvTitle)
+        val title : TextView = view.findViewById(R.id.textTitleTv)
         val image : ImageView = view.findViewById(R.id.imgNew)
     }
 }

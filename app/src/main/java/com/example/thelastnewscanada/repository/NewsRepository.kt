@@ -13,10 +13,12 @@ class NewsRepository(
 ) {
     private val articlesDao = newsDatabase.articlesDao()
 
-    suspend fun getNewsFromApi() : ResultStatus {
+    suspend fun getNewsFromApi(theme : String = "") : ResultStatus {
         val articlesResult = safeApiRequest {
-            apiService.getAllArticles()
+            apiService.getAllArticles(theme)
         }
+
+        Log.e("message", articlesResult.status.toString())
 
         return if(articlesResult.success && articlesResult.result != null){
             var articles = articlesResult.result.articles.convertToArticles()

@@ -1,8 +1,7 @@
-package com.example.thelastnewscanada.viewModels
+package com.example.thelastnewscanada.viewmodels
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +12,6 @@ import com.example.thelastnewscanada.models.Article
 import com.example.thelastnewscanada.repository.NewsRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import okhttp3.Dispatcher
 
 class NewsViewModel(application: Application) : AndroidViewModel(application){
 
@@ -33,15 +31,16 @@ class NewsViewModel(application: Application) : AndroidViewModel(application){
 
     }
 
-    fun refreshListNews(){
-        refreshNews { repo.getNewsFromApi() }
+    fun refreshListNews(theme : String = ""){
+        refreshNews { repo.getNewsFromApi(theme) }
     }
-    fun refreshNews(updateFunction: suspend () -> NewsRepository.ResultStatus){
-       //viewModelScope.launch {}
 
-        viewModelScope.launch(IO){
+   private fun refreshNews(updateFunction: suspend () -> NewsRepository.ResultStatus){
+        viewModelScope.launch(Dispatchers.Main){
             updateFunction().getErrorMessage(getApplication())
-                ?.let { message -> errorMessage.value = message }
+                ?.let { message ->
+                    errorMessage.value = message
+                }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.thelastnewscanada.ApiModels
+package com.example.thelastnewscanada.apimodels
 
 import com.squareup.moshi.Json
 
