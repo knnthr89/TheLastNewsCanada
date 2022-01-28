@@ -9,8 +9,8 @@ interface NewsAPIService {
 
     @GET("everything")
     suspend fun getAllArticles(
-        @Query("q") theme: String = "bitcoin",
-        @Query("apiKey") apiKey: String = "309858f664d141108a30962182bbeff0"
+        @Query("q") theme: String,
+        @Query("apiKey") apiKey: String
     ): NewsApiModel
 
 }

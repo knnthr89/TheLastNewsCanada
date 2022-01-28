@@ -34,8 +34,9 @@ class NewsListFragment : Fragment() {
                lifecycleOwner = viewLifecycleOwner
             }
 
-        binding.leadersSwipeRefreshLayout.setOnRefreshListener { // Your code to refresh the list here.
+        binding.leadersSwipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshListNews()
+            Thread.sleep(3000)
             if(viewModel.errorMessage.value!!.isNullOrBlank()){
                Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
             }else{

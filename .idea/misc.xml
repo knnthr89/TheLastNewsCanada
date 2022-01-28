@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kenm_/OneDrive/Documentos/TheLastNewsCanada/app/src/main/res/drawable/margin_edit_text.xml" value="0.25" />
+        <entry key="..\:/Users/kenm_/OneDrive/Documentos/TheLastNewsCanada/app/src/main/res/layout/activity_main.xml" value="0.31437598736176936" />
+        <entry key="..\:/Users/kenm_/OneDrive/Documentos/TheLastNewsCanada/app/src/main/res/layout/fragment_news_list.xml" value="0.10364583333333334" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.21041666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_news_list.xml" value="0.146875" />

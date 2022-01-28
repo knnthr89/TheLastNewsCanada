@@ -13,16 +13,20 @@ class NewsRepository(
 ) {
     private val articlesDao = newsDatabase.articlesDao()
 
-    suspend fun getNewsFromApi(theme : String = "") : ResultStatus {
+    suspend fun getNewsFromApi(theme : String) : ResultStatus {
         val articlesResult = safeApiRequest {
-            apiService.getAllArticles(theme)
+            apiService.getAllArticles(
+                theme = theme,
+                apiKey ="309858f664d141108a30962182bbeff0"
+            )
         }
 
-        Log.e("message", articlesResult.status.toString())
+        Log.e("updated", articlesResult.result?.articles?.size.toString())
 
         return if(articlesResult.success && articlesResult.result != null){
             var articles = articlesResult.result.articles.convertToArticles()
 
+            articlesDao.deleteAllNews()
             articlesDao.insertArticles(articles)
 
             ResultStatus.Success

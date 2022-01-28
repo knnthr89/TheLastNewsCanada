@@ -31,16 +31,14 @@ class NewsViewModel(application: Application) : AndroidViewModel(application){
 
     }
 
-    fun refreshListNews(theme : String = ""){
+    fun refreshListNews(theme : String = "bitcoin"){
         refreshNews { repo.getNewsFromApi(theme) }
     }
 
    private fun refreshNews(updateFunction: suspend () -> NewsRepository.ResultStatus){
         viewModelScope.launch(Dispatchers.Main){
             updateFunction().getErrorMessage(getApplication())
-                ?.let { message ->
-                    errorMessage.value = message
-                }
+                ?.let { message -> errorMessage.value = message }
         }
     }
 }

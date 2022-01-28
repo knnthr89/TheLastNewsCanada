@@ -16,4 +16,7 @@ abstract class ArticlesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertArticles(keys: List<Article>)
 
+    @Query("DELETE FROM article")
+    abstract fun deleteAllNews()
+
 }

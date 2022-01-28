@@ -19,7 +19,8 @@ class TitlesAdapter(private val articles : List<Article>) : RecyclerView.Adapter
         val article = articles[position]
         holder.title.text = article.title
 
-        Picasso.get().load(article.urlToImage).into(holder.image)
+        if(article.urlToImage.isNotBlank())
+            Picasso.get().load(article.urlToImage).into(holder.image)
 
         holder.itemView.setOnClickListener {
 

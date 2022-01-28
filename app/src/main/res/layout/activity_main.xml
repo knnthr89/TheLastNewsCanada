@@ -13,23 +13,17 @@
             android:id="@+id/autocompleteTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/imageBtn"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:maxLines="1"
             android:singleLine="true"
+            android:padding="10dp"
+            android:background="@drawable/margin_edit_text"
+            android:hint="Find a specific topic..."
+            android:drawableRight="@drawable/ic_cross_out"
+            android:textSize="20dp"
             />
-
-        <ImageButton
-            android:id="@+id/imageBtn"
-            android:layout_width="40dp"
-            android:layout_height="45dp"
-            android:src="@drawable/ic_search"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/autocompleteTv"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@null"
-            android:padding="15dp"/>
 
         <FrameLayout
             android:id="@+id/fragment_container"
