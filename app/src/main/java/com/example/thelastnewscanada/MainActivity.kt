@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 if (event.action == MotionEvent.ACTION_UP) {
                     if(event.rawX >= autocompleteTv.right - autocompleteTv.totalPaddingRight) {
                         autocompleteTv.setText("")
+                        autocompleteTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
                         return@OnTouchListener true
                     }
                 }
