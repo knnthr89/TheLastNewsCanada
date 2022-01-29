@@ -1,5 +1,7 @@
 package com.example.thelastnewscanada
 
+import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AdapterView
@@ -16,6 +18,7 @@ import android.content.Intent
 
 import android.view.MotionEvent
 import android.view.View.OnTouchListener
+import android.view.inputmethod.InputMethodManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,8 +40,10 @@ class MainActivity : AppCompatActivity() {
             autocompleteTv.doOnTextChanged { text, start, before, count ->
                 if(text.toString().isNotEmpty()){
                     autocompleteTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_cross_out, 0)
+                    mFragment.updateNewsList(text.toString())
+                }else{
+                    hideKeyboard(view = activityMainBinding.root)
                 }
-                mFragment.updateNewsList(text.toString())
             }
 
             autocompleteTv.setOnTouchListener(OnTouchListener { v, event ->
@@ -54,11 +59,14 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
-
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, mFragment as NewsListFragment).commit()
+            .replace(R.id.fragment_container, mFragment).commit()
 
+    }
+
+    fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

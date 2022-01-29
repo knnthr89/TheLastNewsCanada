@@ -2,10 +2,13 @@ package com.example.thelastnewscanada.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.room.CoroutinesRoom
 import com.example.thelastnewscanada.RetrofitClientInstance
 import com.example.thelastnewscanada.converters.convertToArticles
 import com.example.thelastnewscanada.database.NewsDatabase
 import com.example.thelastnewscanada.models.Article
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.io.IOException
 
 class NewsRepository(
@@ -17,11 +20,9 @@ class NewsRepository(
         val articlesResult = safeApiRequest {
             apiService.getAllArticles(
                 theme = theme,
-                apiKey ="309858f664d141108a30962182bbeff0"
+                apiKey = "309858f664d141108a30962182bbeff0"
             )
         }
-
-        Log.e("updated", articlesResult.result?.articles?.size.toString())
 
         return if(articlesResult.success && articlesResult.result != null){
             var articles = articlesResult.result.articles.convertToArticles()
