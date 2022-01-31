@@ -1,6 +1,8 @@
 package com.example.thelastnewscanada.repository
 
 import androidx.lifecycle.LiveData
+import com.example.thelastnewscanada.BuildConfig
+
 import com.example.thelastnewscanada.RetrofitClientInstance
 import com.example.thelastnewscanada.converters.convertToArticles
 import com.example.thelastnewscanada.database.NewsDatabase
@@ -11,12 +13,12 @@ class NewsRepository(
     private val newsDatabase: NewsDatabase
 ) {
     private val articlesDao = newsDatabase.articlesDao()
-
+    private val apikey : String = BuildConfig.NEWS_API_KEY
     suspend fun getNewsFromApi(theme : String) : ResultStatus {
         val articlesResult = safeApiRequest {
             apiService.getAllArticles(
                 theme = theme,
-                apiKey = "309858f664d141108a30962182bbeff0"
+                apiKey = apikey
             )
         }
 
