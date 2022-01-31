@@ -1,14 +1,10 @@
 package com.example.thelastnewscanada.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.room.CoroutinesRoom
 import com.example.thelastnewscanada.RetrofitClientInstance
 import com.example.thelastnewscanada.converters.convertToArticles
 import com.example.thelastnewscanada.database.NewsDatabase
 import com.example.thelastnewscanada.models.Article
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import java.io.IOException
 
 class NewsRepository(
@@ -27,8 +23,10 @@ class NewsRepository(
         return if(articlesResult.success && articlesResult.result != null){
             var articles = articlesResult.result.articles.convertToArticles()
 
-            articlesDao.deleteAllNews()
-            articlesDao.insertArticles(articles)
+            if(articles.isNotEmpty()){
+                articlesDao.deleteAllNews()
+                articlesDao.insertArticles(articles)
+            }
 
             ResultStatus.Success
         }else{

@@ -36,7 +36,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application){
     }
 
    private fun refreshNews(updateFunction: suspend () -> NewsRepository.ResultStatus){
-       viewModelScope.launch(Dispatchers.IO) {
+       viewModelScope.launch(Dispatchers.Main) {
            updateFunction().getErrorMessage(getApplication())
                ?.let { message -> errorMessage.value = message }
        }
