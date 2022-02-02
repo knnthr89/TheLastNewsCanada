@@ -6,14 +6,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.thelastnewscanada.daos.ArticlesDao
+import com.example.thelastnewscanada.daos.SearchesDao
 import com.example.thelastnewscanada.models.Article
+import com.example.thelastnewscanada.models.Search
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Article::class], exportSchema = false, version = 1)
+@Database(entities = [Article::class, Search::class], exportSchema = false, version = 1)
 abstract class NewsDatabase : RoomDatabase() {
     abstract fun articlesDao() : ArticlesDao
-
+    abstract fun searchesDao() : SearchesDao
     companion object {
         @Volatile
         private var Instance: NewsDatabase? = null
@@ -30,7 +32,8 @@ abstract class NewsDatabase : RoomDatabase() {
                     scope.launch {
                         Instance
                             ?.articlesDao()
-                            //?.getCurrentArticles()
+                        Instance
+                            ?.searchesDao()
                     }
                 }
             }).build()

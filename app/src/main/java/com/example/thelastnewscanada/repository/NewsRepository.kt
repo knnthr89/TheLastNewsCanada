@@ -6,13 +6,17 @@ import com.example.thelastnewscanada.BuildConfig
 import com.example.thelastnewscanada.RetrofitClientInstance
 import com.example.thelastnewscanada.converters.convertToArticles
 import com.example.thelastnewscanada.database.NewsDatabase
+import com.example.thelastnewscanada.enums.ResultStatus
 import com.example.thelastnewscanada.models.Article
+import com.example.thelastnewscanada.models.Search
 import java.io.IOException
 
 class NewsRepository(
     private val newsDatabase: NewsDatabase
 ) {
     private val articlesDao = newsDatabase.articlesDao()
+    private val searchesDao = newsDatabase.searchesDao()
+
     private val apikey : String = BuildConfig.NEWS_API_KEY
     suspend fun getNewsFromApi(theme : String) : ResultStatus {
         val articlesResult = safeApiRequest {
@@ -36,16 +40,17 @@ class NewsRepository(
         }
     }
 
+    fun insertSearchFromView(search: Search) =
+        searchesDao.insertSearch(search)
+
+    fun getSearchesFromRoom() : LiveData<List<Search>> =
+        searchesDao.getAllSearches()
+
     fun getArticlesFromRoom() : LiveData<List<Article>> =
         articlesDao.getArticles()
 
-    enum class ResultStatus {
-        Unknown,
-        Success,
-        NetworkException,
-        RequestException,
-        GeneralException
-    }
+    fun deleteAllSearches() =
+        searchesDao.deleteAllSearches()
 
     inner class ApiResult<T>(
         val result: T? = null,

@@ -2,7 +2,7 @@ package com.example.thelastnewscanada.extensions
 
 import android.app.Application
 import com.example.thelastnewscanada.R
-import com.example.thelastnewscanada.repository.NewsRepository.ResultStatus
+import com.example.thelastnewscanada.enums.ResultStatus
 
 fun ResultStatus.getErrorMessage(application: Application) = when (this) {
     ResultStatus.NetworkException -> application.resources.getString(R.string.network_exception_message)
