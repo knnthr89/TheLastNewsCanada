@@ -39,8 +39,7 @@ class NewsListFragment : Fragment() {
 
         binding.newsSwipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshListNews()
-            Thread.sleep(3000)
-            if (viewModel.errorMessage.value!!.isNullOrBlank()) {
+            if (viewModel.errorMessage.value == null || viewModel.errorMessage.value == "") {
                 Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(
@@ -58,7 +57,7 @@ class NewsListFragment : Fragment() {
         }
 
         viewModel.searches.observe(viewLifecycleOwner) { searches ->
-            binding.recentSearchesRv.layoutManager = GridLayoutManager(context, 4)
+            binding.recentSearchesRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             binding.recentSearchesRv.adapter = SearchesAdapter(searches.asReversed())
         }
 
