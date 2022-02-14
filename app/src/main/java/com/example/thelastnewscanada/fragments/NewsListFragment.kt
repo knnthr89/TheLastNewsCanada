@@ -7,23 +7,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.CoroutinesRoom
 import com.example.thelastnewscanada.adapters.SearchesAdapter
 import com.example.thelastnewscanada.adapters.TitlesAdapter
 import com.example.thelastnewscanada.databinding.FragmentNewsListBinding
 import com.example.thelastnewscanada.viewmodels.NewsViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-
 
 class NewsListFragment : Fragment() {
 
     private val viewModel by activityViewModels<NewsViewModel>()
     private lateinit var binding: FragmentNewsListBinding
-    private var searches: List<String> = emptyList()
-    private var list: ArrayList<String> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -5,5 +5,6 @@ enum class ResultStatus {
         Success,
         NetworkException,
         RequestException,
-        GeneralException
+        GeneralException,
+        NotFoudResult
 }
