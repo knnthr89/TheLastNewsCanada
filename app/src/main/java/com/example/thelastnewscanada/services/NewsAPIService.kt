@@ -10,7 +10,8 @@ interface NewsAPIService {
     @GET("everything")
     suspend fun getAllArticles(
         @Query("q") theme: String,
-        @Query("apiKey") apiKey: String
+        @Query("apiKey") apiKey: String,
+        @Query("pageSize") pageSize : String = "100"
     ): NewsApiModel
 
 }

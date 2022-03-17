@@ -1,6 +1,7 @@
 package com.example.thelastnewscanada.daos
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,7 +12,7 @@ import com.example.thelastnewscanada.models.Article
 abstract class ArticlesDao {
 
     @Query("SELECT * FROM article")
-    abstract fun getArticles(): LiveData<List<Article>>
+    abstract fun getArticles(): PagingSource<Int, Article>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertArticles(keys: List<Article>)

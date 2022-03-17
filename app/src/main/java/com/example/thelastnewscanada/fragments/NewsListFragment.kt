@@ -5,17 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.thelastnewscanada.adapters.NewViewModelFactory
 import com.example.thelastnewscanada.adapters.SearchesAdapter
 import com.example.thelastnewscanada.adapters.TitlesAdapter
 import com.example.thelastnewscanada.databinding.FragmentNewsListBinding
+import com.example.thelastnewscanada.models.Article
 import com.example.thelastnewscanada.viewmodels.NewsViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.observeOn
+import kotlinx.coroutines.launch
 
 class NewsListFragment : Fragment() {
 
-    private val viewModel by activityViewModels<NewsViewModel>()
+   // private val viewModel by activityViewModels<NewsViewModel>()
+    private val viewModel by viewModels<NewsViewModel> { NewViewModelFactory(context = requireContext()) }
     private lateinit var binding: FragmentNewsListBinding
 
     override fun onCreateView(
@@ -44,10 +54,35 @@ class NewsListFragment : Fragment() {
             binding.newsSwipeRefreshLayout.isRefreshing = false
         }
 
-        viewModel.articles.observe(viewLifecycleOwner) { articles ->
+        /*viewModel.articles.observe(viewLifecycleOwner) { articles ->
             binding.titlesRv.layoutManager = LinearLayoutManager(context)
             binding.titlesRv.adapter = TitlesAdapter(articles)
+        }*/
+
+        val article = Article(
+            author = "",
+            title = "",
+            description = "",
+            publishedAt = "",
+            content = "",
+            urlToImage = ""
+        )
+
+
+        val adapter = TitlesAdapter()
+        binding.titlesRv.layoutManager = LinearLayoutManager(context)
+        binding.titlesRv.adapter = adapter
+
+        lifecycleScope.launch {
+            /*viewModel.allArticles.collectLatest { pagingData ->
+               adapter.submitData(pagingData)
+            }*/
+
+            viewModel.articles.collectLatest { pagingData ->
+                adapter.submitData(pagingData = pagingData)
+            }
         }
+
 
         viewModel.searches.observe(viewLifecycleOwner) { searches ->
             binding.recentSearchesRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

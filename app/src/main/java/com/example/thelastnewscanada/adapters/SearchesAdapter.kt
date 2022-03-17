@@ -4,10 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.thelastnewscanada.ArticleViewHolder
 import com.example.thelastnewscanada.R
 import com.example.thelastnewscanada.models.Article
 import com.example.thelastnewscanada.models.Search
+import com.example.thelastnewscanada.sealeds.ArticleListItem
 
 class SearchesAdapter(private val searches : List<Search>) : RecyclerView.Adapter<SearchesAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchesAdapter.ViewHolder {

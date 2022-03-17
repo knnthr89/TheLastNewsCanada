@@ -1,6 +1,8 @@
 package com.example.thelastnewscanada.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.paging.*
 import com.example.thelastnewscanada.BuildConfig
 
 import com.example.thelastnewscanada.RetrofitClientInstance
@@ -9,12 +11,15 @@ import com.example.thelastnewscanada.database.NewsDatabase
 import com.example.thelastnewscanada.enums.ResultStatus
 import com.example.thelastnewscanada.models.Article
 import com.example.thelastnewscanada.models.Search
+import com.example.thelastnewscanada.sealeds.ArticleListItem
+import kotlinx.coroutines.flow.map
 import java.io.IOException
+import java.util.concurrent.Flow
 
 class NewsRepository(
     private val newsDatabase: NewsDatabase
 ) {
-    private val articlesDao = newsDatabase.articlesDao()
+    val articlesDao = newsDatabase.articlesDao()
     private val searchesDao = newsDatabase.searchesDao()
 
     private val apikey : String = BuildConfig.NEWS_API_KEY
@@ -28,6 +33,8 @@ class NewsRepository(
 
         return if(articlesResult.success && articlesResult.result != null){
             var articles = articlesResult.result.articles.convertToArticles()
+
+            Log.e("Size", "${articles.size}")
 
             if(articles.isNotEmpty()){
                 articlesDao.deleteAllNews()
@@ -46,8 +53,8 @@ class NewsRepository(
     fun getSearchesFromRoom() : LiveData<List<Search>> =
         searchesDao.getAllSearches()
 
-    fun getArticlesFromRoom() : LiveData<List<Article>> =
-        articlesDao.getArticles()
+    /*fun getArticlesFromRoom() : LiveData<List<Article>> =
+        articlesDao.getArticles()*/
 
     fun deleteAllSearches() =
         searchesDao.deleteAllSearches()
